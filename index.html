@@ -440,7 +440,7 @@
 <body>
     <!-- Header Section -->
     <header>
-        <canvas id="donut-canvas"></canvas>
+        <canvas id="tesseract-canvas"></canvas>
         <div class="header-content">
             <div class="profile-container">
                 <div class="profile-img">
@@ -646,115 +646,102 @@
             <p>&copy; <script>document.write(new Date().getFullYear())</script> Your Name. All Rights Reserved.</p>
         </div>
     </footer>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 60,
-                        behavior: 'smooth'
-                    });
+<script><script>
+    (function () {
+        const canvas = document.getElementById('tesseract-canvas');
+        const ctx = canvas.getContext('2d');
+    
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+    
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+    
+        const size = 1;
+        let angle = 0;
+    
+        // Generate 16 vertices of a tesseract (4D hypercube)
+        const vertices = [];
+        for (let i = 0; i < 16; i++) {
+            vertices.push([
+                (i & 1 ? 1 : -1) * size,
+                (i & 2 ? 1 : -1) * size,
+                (i & 4 ? 1 : -1) * size,
+                (i & 8 ? 1 : -1) * size,
+            ]);
+        }
+    
+        function rotate4D([x, y, z, w], a, b, angle) {
+            const sin = Math.sin(angle);
+            const cos = Math.cos(angle);
+            const vec = [x, y, z, w];
+            const tempA = vec[a];
+            const tempB = vec[b];
+            vec[a] = tempA * cos - tempB * sin;
+            vec[b] = tempA * sin + tempB * cos;
+            return vec;
+        }
+    
+        function project(vec4) {
+            let [x, y, z, w] = vec4;
+    
+            // 4D → 3D
+            const distance4D = 4;
+            const wScale = 1 / (distance4D - w);
+            x *= wScale;
+            y *= wScale;
+            z *= wScale;
+    
+            // 3D → 2D
+            const distance3D = 4;
+            const zScale = 1 / (distance3D - z);
+            return {
+                x: x * zScale * canvas.width / 8 + canvas.width / 2,
+                y: y * zScale * canvas.height / 8 + canvas.height / 2
+            };
+        }
+    
+        function connectIndices(i, j, projected) {
+            const a = projected[i];
+            const b = projected[j];
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+        }
+    
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = "#0f0";
+            ctx.lineWidth = 1;
+    
+            const projected = [];
+    
+            for (let v of vertices) {
+                let rotated = rotate4D(v, 0, 3, angle); // Rotate in XW
+                rotated = rotate4D(rotated, 1, 2, angle * 0.5); // Rotate in YZ
+                projected.push(project(rotated));
+            }
+    
+            // Connect edges
+            for (let i = 0; i < 16; i++) {
+                for (let j = i + 1; j < 16; j++) {
+                    let diff = i ^ j;
+                    if (diff && !(diff & (diff - 1))) {
+                        connectIndices(i, j, projected);
+                    }
                 }
-            });
-        });
-        
-        // Form submission handler (you'll need a backend for this to work)
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! This is a demo form - in a real portfolio, this would send your message to the portfolio owner.');
-        });
+            }
+    
+            angle += 0.01;
+            requestAnimationFrame(draw);
+        }
+    
+        draw();
+    })();
     </script>
-    <script>
-        (function () {
-            const canvas = document.getElementById('donut-canvas');
-            const ctx = canvas.getContext('2d');
-        
-            function resizeCanvas() {
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-            }
-        
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-        
-            const chars = '.,-~:;=!*#$@'.split('');
-            let A = 1, B = 1;
-        
-            function renderFrame() {
-                const width = canvas.width;
-                const height = canvas.height;
-                const text = [];
-                const zBuffer = [];
-        
-                const R1 = 1;
-                const R2 = 2;
-                const K2 = 5;
-                const K1 = width * K2 * 3 / (8 * (R1 + R2));
-        
-                ctx.clearRect(0, 0, width, height);
-        
-                for (let i = 0; i < width * height; i++) {
-                    text[i] = ' ';
-                    zBuffer[i] = 0;
-                }
-        
-                for (let theta = 0; theta < 2 * Math.PI; theta += 0.07) {
-                    for (let phi = 0; phi < 2 * Math.PI; phi += 0.02) {
-                        const cosTheta = Math.cos(theta);
-                        const sinTheta = Math.sin(theta);
-                        const cosPhi = Math.cos(phi);
-                        const sinPhi = Math.sin(phi);
-        
-                        const circleX = R2 + R1 * cosTheta;
-                        const circleY = R1 * sinTheta;
-        
-                        const x = circleX * (Math.cos(B) * cosPhi + Math.sin(A) * Math.sin(B) * sinPhi) - circleY * Math.cos(A) * Math.sin(B);
-                        const y = circleX * (Math.sin(B) * cosPhi - Math.sin(A) * Math.cos(B) * sinPhi) + circleY * Math.cos(A) * Math.cos(B);
-                        const z = K2 + Math.cos(A) * circleX * sinPhi + circleY * Math.sin(A);
-                        const ooz = 1 / z;
-        
-                        const xp = Math.floor(width / 2 + K1 * ooz * x);
-                        const yp = Math.floor(height / 2 - K1 * ooz * y);
-        
-                        const L = Math.cos(phi) * cosTheta * Math.sin(B) - Math.cos(A) * cosTheta * sinPhi - Math.sin(A) * sinTheta + Math.cos(B) * (Math.cos(A) * sinTheta - cosTheta * Math.sin(A) * sinPhi);
-        
-                        const luminanceIndex = Math.floor(L * 8);
-                        if (luminanceIndex > 0) {
-                            const idx = xp + yp * width;
-                            if (idx >= 0 && idx < width * height) {
-                                if (ooz > zBuffer[idx]) {
-                                    zBuffer[idx] = ooz;
-                                    text[idx] = chars[luminanceIndex];
-                                }
-                            }
-                        }
-                    }
-                }
-        
-                ctx.font = "8px monospace";
-                ctx.fillStyle = "#fff";
-                for (let y = 0; y < height; y += 8) {
-                    for (let x = 0; x < width; x += 5) {
-                        const char = text[Math.floor(x) + Math.floor(y) * width];
-                        if (char) ctx.fillText(char, x, y);
-                    }
-                }
-        
-                A += 0.07;
-                B += 0.03;
-                requestAnimationFrame(renderFrame);
-            }
-        
-            renderFrame();
-        })();
-        </script>
         
 </body>
 </html>
