@@ -1,0 +1,17 @@
+RE: Application for Graduate Mechatronic Engineer
+
+Dear Hiring Committee,
+
+As a Mechatronic Engineering graduate passionate about integrating intelligent control with sustainable infrastructure, I am excited to apply for the Industrus Engineering Graduate Program. Your work on Australia’s largest lithium-ion battery and engineered timber office buildings reflects the innovative, forward-thinking environment I am eager to join. I am confident that my multidisciplinary background and commitment to excellence align with the selection criteria for this role.
+
+Professional Accountability and Ethics (3.1) I hold myself to the highest standards of professional accountability, guided by the Engineers Australia Code of Ethics. During my capstone project developing an autonomous drone, I led the safety and risk assessment phase, ensuring our design complied with all civil aviation regulations. I believe an engineer’s primary responsibility is the safety and well-being of the community.
+
+Communication and Stakeholder Engagement (3.2) Mechatronics requires bridging the gap between mechanical, electrical, and software domains. During my internship at a manufacturing firm, I successfully translated complex automation upgrades into clear, benefit-driven language for non-technical floor managers, while maintaining rigorous technical documentation for the engineering team. This ensures all stakeholders remain aligned on project goals.
+
+Innovation and Proactive Problem Solving (3.3 & 3.4) I thrive in creative environments. When a critical sensor failed during a university robotics competition, I proactively implemented a computer-vision workaround that improved our navigation accuracy under pressure. This experience, combined with my ability to manage and analyze large datasets using Python and MATLAB, allows me to turn complex information into innovative engineering solutions.
+
+Performance Management and Leadership (3.5 & 3.6) I am a disciplined self-starter, evidenced by my ability to maintain a Distinction average while working part-time. I use project management tools to track my performance and meet strict deadlines. Furthermore, as a sub-team lead in the Formula SAE competition, I demonstrated leadership by coordinating tasks across different disciplines and fostering a collaborative, inclusive team culture to achieve a high-performance result.
+
+I am eager to bring my technical versatility and proactive mindset to Industrus. Thank you for your time and consideration.
+
+Yours sincerely,

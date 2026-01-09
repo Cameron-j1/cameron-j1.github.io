@@ -22,7 +22,8 @@
             box-sizing: border-box;
         }
         
-        #donut-canvas {
+        /* Updated ID to match your HTML canvas */
+        #tesseract-canvas {
             position: absolute;
             top: 0;
             left: 0;
@@ -63,6 +64,7 @@
             padding: 2rem 0;
             text-align: center;
             position: relative;
+            overflow: hidden; /* Ensures canvas stays inside header */
         }
         
         .header-content {
@@ -202,6 +204,27 @@
             transform: translateY(-3px);
             background-color: var(--secondary-color);
         }
+
+        /* --- NEW CV SECTION STYLES --- */
+        .letter-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .letter-content {
+            white-space: pre-wrap; /* This preserves formatting from the txt file */
+            font-family: inherit;
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+        
+        .error-msg {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        /* ----------------------------- */
         
         /* Projects Section */
         .projects-grid {
@@ -438,7 +461,6 @@
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <canvas id="tesseract-canvas"></canvas>
         <div class="header-content">
@@ -458,26 +480,23 @@
         </div>
     </header>
     
-    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <a href="#about" class="nav-link">About</a>
-            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#cv" class="nav-link">Cover Letter</a> <a href="#projects" class="nav-link">Projects</a>
             <a href="#education" class="nav-link">Education</a>
             <a href="#contact" class="nav-link">Contact</a>
         </div>
     </nav>
     
-    <!-- Main Content -->
     <main>
-        <!-- About Section -->
         <section id="about" class="section container">
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>Hello! I'm a 4th year Mechatronic Engineering student at the University of Technology Sydney (UTS). I'm passionate about robotics, automation, and creating innovative solutions that bridge the gap between mechanical and electronic systems.</p>
                     <p>My academic journey has equipped me with a strong foundation in mechanical design, electronics, programming, and control systems. I enjoy tackling complex engineering challenges and turning theoretical concepts into functional prototypes.</p>
-                    <p>Outside of my studies, I'm involved in [mention any clubs, competitions, or relevant activities]. I'm currently seeking opportunities to apply my skills in real-world settings through internships or graduate positions.</p>
+                    <p>Outside of my studies, I'm involved in Hobby PCBa design and Retro Gaming repairs . I'm currently seeking opportunities to apply my skills in real-world settings through internships or graduate positions.</p>
                 </div>
                 <div class="skills">
                     <h3>Technical Skills</h3>
@@ -498,12 +517,17 @@
                 </div>
             </div>
         </section>
+
+        <section id="cv" class="section container">
+            <h2 class="section-title">Cover Letter</h2>
+            <div class="letter-container">
+                <div id="cv-injection-point" class="letter-content">Loading cover letter...</div>
+            </div>
+        </section>
         
-        <!-- Projects Section -->
         <section id="projects" class="section container">
             <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
-                <!-- Project 1 -->
                 <div class="project-card">
                     <div class="project-img">
                         <i class="fas fa-robot"></i>
@@ -523,7 +547,6 @@
                     </div>
                 </div>
                 
-                <!-- Project 2 -->
                 <div class="project-card">
                     <div class="project-img">
                         <i class="fas fa-microchip"></i>
@@ -542,7 +565,6 @@
                     </div>
                 </div>
                 
-                <!-- Project 3 -->
                 <div class="project-card">
                     <div class="project-img">
                         <i class="fas fa-cogs"></i>
@@ -563,7 +585,6 @@
             </div>
         </section>
         
-        <!-- Education Section -->
         <section id="education" class="section container">
             <h2 class="section-title">Education</h2>
             <div class="timeline">
@@ -571,27 +592,20 @@
                     <div class="timeline-date">2022 - Present</div>
                     <h3 class="timeline-title">Bachelor of Engineering (Honours) in Mechatronic Engineering</h3>
                     <p class="timeline-location">University of Technology Sydney (UTS)</p>
-                    <p>Focusing on robotics, automation, and control systems. Expected graduation: [Month Year].</p>
+                    <p>Focusing on robotics, automation, and control systems. Expected graduation: Dec 26.</p>
                 </div>
                 
-                <!-- Add more education items as needed -->
-                <div class="timeline-item">
-                    <div class="timeline-date">[Year] - [Year]</div>
-                    <h3 class="timeline-title">[Previous Degree/Certification]</h3>
-                    <p class="timeline-location">[Institution Name]</p>
-                    <p>[Brief description]</p>
                 </div>
             </div>
         </section>
         
-        <!-- Contact Section -->
         <section id="contact" class="section container">
             <h2 class="section-title">Contact Me</h2>
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span>your.email@example.com</span>
+                        <span>cameron.johns2002@gmail.com</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
@@ -603,11 +617,11 @@
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-github"></i>
-                        <span>github.com/yourusername</span>
+                        <span>github.com/Cameron-j1</span>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-linkedin"></i>
-                        <span>linkedin.com/in/yourprofile</span>
+                        <span>linkedin.com/in/camjohns</span>
                     </div>
                 </div>
                 
@@ -634,7 +648,6 @@
         </section>
     </main>
     
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-social">
@@ -643,10 +656,11 @@
                 <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
                 <a href="#" target="_blank"><i class="fas fa-envelope"></i></a>
             </div>
-            <p>&copy; <script>document.write(new Date().getFullYear())</script> Your Name. All Rights Reserved.</p>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Cameron Johns. All Rights Reserved.</p>
         </div>
     </footer>
-<script><script>
+
+    <script>
     (function () {
         const canvas = document.getElementById('tesseract-canvas');
         const ctx = canvas.getContext('2d');
@@ -659,10 +673,12 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
     
-        const size = 1;
-        let angle = 0;
+        // --- CONFIGURATION ---
+        const TILE_SIZE = 100; // Size of each pattern square in pixels
+        const size = 1.5;      // Size of the tesseract relative to the tile
+        let angle = 90;
     
-        // Generate 16 vertices of a tesseract (4D hypercube)
+        // Generate 16 vertices of a tesseract
         const vertices = [];
         for (let i = 0; i < 16; i++) {
             vertices.push([
@@ -688,50 +704,66 @@
             let [x, y, z, w] = vec4;
     
             // 4D → 3D
-            const distance4D = 4;
+            const distance4D = 3; 
             const wScale = 1 / (distance4D - w);
             x *= wScale;
             y *= wScale;
             z *= wScale;
     
             // 3D → 2D
-            const distance3D = 4;
+            const distance3D = 3;
             const zScale = 1 / (distance3D - z);
+            
+            // Scale based on TILE_SIZE, not full canvas width
+            const scale = TILE_SIZE / 4; 
+            
+            // Return coordinates relative to the center of the tile (0,0 is center)
             return {
-                x: x * zScale * canvas.width / 8 + canvas.width / 2,
-                y: y * zScale * canvas.height / 8 + canvas.height / 2
+                x: x * zScale * scale,
+                y: y * zScale * scale
             };
         }
     
-        function connectIndices(i, j, projected) {
+        function connectIndices(i, j, projected, offsetX, offsetY) {
             const a = projected[i];
             const b = projected[j];
             ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
+            // Add the grid offset to position this specific tesseract
+            ctx.moveTo(a.x + offsetX, a.y + offsetY);
+            ctx.lineTo(b.x + offsetX, b.y + offsetY);
             ctx.stroke();
         }
     
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = "#0f0";
+            
+            // Style: Cyan, thin lines, slightly transparent
+            ctx.strokeStyle = "rgba(0, 255, 255, 0.4)"; 
             ctx.lineWidth = 1;
     
-            const projected = [];
-    
+            // 1. Calculate the shape ONCE per frame
+            const currentShape = [];
             for (let v of vertices) {
-                let rotated = rotate4D(v, 0, 3, angle); // Rotate in XW
-                rotated = rotate4D(rotated, 1, 2, angle * 0.5); // Rotate in YZ
-                projected.push(project(rotated));
+                let rotated = rotate4D(v, 0, 3, angle); 
+                rotated = rotate4D(rotated, 1, 2, angle * 0.5); 
+                currentShape.push(project(rotated));
             }
     
-            // Connect edges
-            for (let i = 0; i < 16; i++) {
-                for (let j = i + 1; j < 16; j++) {
-                    let diff = i ^ j;
-                    if (diff && !(diff & (diff - 1))) {
-                        connectIndices(i, j, projected);
+            // 2. Loop through the width and height to draw the grid
+            // We start slightly off-screen (-TILE_SIZE) to ensure edges are filled
+            for (let y = TILE_SIZE/2; y < canvas.height + TILE_SIZE; y += TILE_SIZE) {
+                for (let x = TILE_SIZE/2; x < canvas.width + TILE_SIZE; x += TILE_SIZE) {
+                    
+                    // Draw edges for this specific tile position
+                    for (let i = 0; i < 16; i++) {
+                        for (let j = i + 1; j < 16; j++) {
+                            let diff = i ^ j;
+                            if (diff && !(diff & (diff - 1))) {
+                                connectIndices(i, j, currentShape, x, y);
+                            }
+                        }
                     }
+
                 }
             }
     
@@ -740,8 +772,15 @@
         }
     
         draw();
+
+        // CV Fetch Logic (Unchanged)
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch('cv.txt')
+                .then(r => r.ok ? r.text() : Promise.reject("404"))
+                .then(t => document.getElementById('cv-injection-point').textContent = t)
+                .catch(e => document.getElementById('cv-injection-point').innerHTML = '<p class="error-msg">Error loading CV. Use a local server.</p>');
+        });
     })();
-    </script>
-        
+</script>
 </body>
 </html>
