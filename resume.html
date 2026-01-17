@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Cameron Johns</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0b1020;
+            --secondary-color: #ff6b35;
+            --accent-color: #00d1ff;
+            --light-bg: #f8f9fa;
+            --dark-bg: #111827;
+            --text-color: #e5e7eb;
+            --muted-text: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(14px);
+            background: linear-gradient(to bottom, rgba(15,23,42,0.95), rgba(15,23,42,0.7));
+            border-bottom: 1px solid rgba(148,163,184,0.18);
+        }
+
+        .top-nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.9rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+        }
+
+        .brand-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 10%, #facc15, #f97316 40%, #991b1b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #111827;
+            box-shadow: 0 0 22px rgba(248, 113, 113, 0.55);
+        }
+
+        .brand span {
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .nav-pill {
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            color: var(--muted-text);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-pill:hover {
+            border-color: rgba(148,163,184,0.5);
+            color: #e5e7eb;
+            background: rgba(15,23,42,0.8);
+        }
+
+        .nav-pill.primary {
+            border-color: rgba(56,189,248,0.7);
+            background: radial-gradient(circle at top left, rgba(56,189,248,0.3), rgba(30,64,175,0.4));
+            color: #e5e7eb;
+            box-shadow: 0 0 24px rgba(56,189,248,0.5);
+        }
+
+        .nav-pill.primary:hover {
+            filter: brightness(1.08);
+        }
+
+        /* Layout */
+        .page-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem 3.5rem;
+            position: relative;
+        }
+
+        /* Decorative background elements */
+        .orb {
+            position: fixed;
+            border-radius: 999px;
+            filter: blur(60px);
+            opacity: 0.32;
+            z-index: -1;
+        }
+        .orb.orb-orange {
+            width: 360px;
+            height: 360px;
+            background: radial-gradient(circle, #fb923c, transparent 60%);
+            top: -60px;
+            right: -80px;
+        }
+        .orb.orb-cyan {
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, #22d3ee, transparent 65%);
+            bottom: -80px;
+            left: -60px;
+        }
+
+        .page-header-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.2rem 0.7rem 0.25rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.4);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--muted-text);
+            margin-bottom: 0.9rem;
+            background: radial-gradient(circle at left, rgba(56,189,248,0.18), transparent 55%);
+        }
+
+        .page-header-eyebrow i {
+            color: var(--accent-color);
+        }
+
+        .page-title {
+            font-size: clamp(2.1rem, 3.3vw, 2.8rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        /* PDF Container */
+        .pdf-container {
+            background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+            border-radius: 1.2rem;
+            padding: 1.75rem;
+            border: 1px solid rgba(148,163,184,0.35);
+            box-shadow: 0 18px 50px rgba(15,23,42,0.9);
+            margin-top: 2rem;
+        }
+
+        .pdf-wrapper {
+            position: relative;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border-radius: 0.8rem;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .pdf-wrapper::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .pdf-wrapper::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+
+        .pdf-wrapper::-webkit-scrollbar-thumb {
+            background: rgba(148,163,184,0.5);
+            border-radius: 4px;
+        }
+
+        .pdf-wrapper::-webkit-scrollbar-thumb:hover {
+            background: rgba(148,163,184,0.7);
+        }
+
+        .resume-page-img {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .pdf-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: radial-gradient(circle at top left, rgba(56,189,248,0.3), rgba(30,64,175,0.4));
+            border: 1px solid rgba(56,189,248,0.7);
+            border-radius: 999px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 24px rgba(56,189,248,0.3);
+            font-size: 0.9rem;
+        }
+
+        .pdf-download-btn:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 32px rgba(56,189,248,0.5);
+        }
+
+        .pdf-fallback {
+            padding: 3rem;
+            text-align: center;
+            color: var(--muted-text);
+        }
+
+        .pdf-fallback a {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: radial-gradient(circle at top left, rgba(56,189,248,0.3), rgba(30,64,175,0.4));
+            border: 1px solid rgba(56,189,248,0.7);
+            border-radius: 999px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 24px rgba(56,189,248,0.3);
+        }
+
+        .pdf-fallback a:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 32px rgba(56,189,248,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .pdf-wrapper {
+                min-height: 600px;
+            }
+            
+            .page-wrap {
+                padding: 1.5rem 1rem 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-orange"></div>
+    <div class="orb orb-cyan"></div>
+
+    <nav class="top-nav">
+        <div class="top-nav-inner">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span>Cameron Johns</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-pill">Portfolio</a>
+                <a href="flare.html" class="nav-pill">F.L.A.R.E</a>
+                <a href="reflections.html" class="nav-pill">Reflections</a>
+                <a href="resume.html" class="nav-pill primary">Resume</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-wrap">
+        <div class="page-header-eyebrow">
+            <i class="fas fa-file-pdf"></i>
+            <span>Professional Resume</span>
+        </div>
+        <h1 class="page-title">Resume</h1>
+
+        <div class="pdf-container">
+            <div style="margin-bottom: 1.5rem; text-align: center;">
+                <a href="Cameron Johns Resume 290804.pdf" download class="pdf-download-btn" style="background: radial-gradient(circle at top left, rgba(255,107,53,0.4), rgba(239,68,68,0.5)); border-color: rgba(255,107,53,0.8); box-shadow: 0 0 32px rgba(255,107,53,0.4);">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
+            <div class="pdf-wrapper">
+                <img src="resume_page-1.png" alt="Resume Page 1" class="resume-page-img">
+                <img src="resume_page-2.png" alt="Resume Page 2" class="resume-page-img">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

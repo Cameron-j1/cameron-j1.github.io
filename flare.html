@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.L.A.R.E Robotics Concept | Cameron Johns</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0b1020;
+            --secondary-color: #ff6b35;
+            --accent-color: #00d1ff;
+            --light-bg: #f8f9fa;
+            --dark-bg: #111827;
+            --text-color: #e5e7eb;
+            --muted-text: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(14px);
+            background: linear-gradient(to bottom, rgba(15,23,42,0.95), rgba(15,23,42,0.7));
+            border-bottom: 1px solid rgba(148,163,184,0.18);
+        }
+
+        .top-nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.9rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+        }
+
+        .brand-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 10%, #facc15, #f97316 40%, #991b1b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #111827;
+            box-shadow: 0 0 22px rgba(248, 113, 113, 0.55);
+        }
+
+        .brand span {
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .nav-pill {
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            color: var(--muted-text);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-pill:hover {
+            border-color: rgba(148,163,184,0.5);
+            color: #e5e7eb;
+            background: rgba(15,23,42,0.8);
+        }
+
+        .nav-pill.primary {
+            border-color: rgba(56,189,248,0.7);
+            background: radial-gradient(circle at top left, rgba(56,189,248,0.3), rgba(30,64,175,0.4));
+            color: #e5e7eb;
+            box-shadow: 0 0 24px rgba(56,189,248,0.5);
+        }
+
+        .nav-pill.primary:hover {
+            filter: brightness(1.08);
+        }
+
+        /* Layout */
+        .page-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem 3.5rem;
+            position: relative;
+        }
+
+        /* Decorative background elements */
+        .orb {
+            position: fixed;
+            border-radius: 999px;
+            filter: blur(60px);
+            opacity: 0.32;
+            z-index: -1;
+        }
+        .orb.orb-orange {
+            width: 360px;
+            height: 360px;
+            background: radial-gradient(circle, #fb923c, transparent 60%);
+            top: -60px;
+            right: -80px;
+        }
+        .orb.orb-cyan {
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, #22d3ee, transparent 65%);
+            bottom: -80px;
+            left: -60px;
+        }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.2rem 0.7rem 0.25rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.4);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--muted-text);
+            margin-bottom: 0.9rem;
+            background: radial-gradient(circle at left, rgba(248,113,113,0.18), transparent 55%);
+        }
+
+        .eyebrow i {
+            color: #f97316;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.1rem, 3.3vw, 2.8rem);
+            line-height: 1.1;
+            margin-bottom: 0.9rem;
+        }
+
+        .hero h1 .flare {
+            background: linear-gradient(120deg, #f97316, #fb7185, #facc15);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--muted-text);
+            max-width: 34rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .pill {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.35);
+            color: var(--muted-text);
+            background: rgba(15,23,42,0.85);
+        }
+
+        .pill.accent {
+            border-color: rgba(56,189,248,0.7);
+            color: #e0f2fe;
+            background: radial-gradient(circle at top left, rgba(56,189,248,0.28), rgba(15,23,42,0.9));
+        }
+
+        .hero-footnote {
+            font-size: 0.8rem;
+            color: var(--muted-text);
+        }
+
+        /* Hero visual card */
+        .hero-card {
+            position: relative;
+            border-radius: 1.4rem;
+            overflow: hidden;
+            background: radial-gradient(circle at top left, #0f172a, #020617 55%);
+            box-shadow:
+                0 24px 60px rgba(15,23,42,0.95),
+                0 0 90px rgba(248,113,113,0.16);
+            border: 1px solid rgba(148,163,184,0.28);
+            padding: 1.35rem 1.4rem 1.3rem;
+        }
+
+        .hero-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.9rem;
+        }
+
+        .hero-card-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--muted-text);
+        }
+
+        .hero-chip-row {
+            display: flex;
+            gap: 0.35rem;
+            font-size: 0.68rem;
+        }
+
+        .hero-chip {
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(30,64,175,0.9);
+            color: #e0f2fe;
+            border: 1px solid rgba(56,189,248,0.6);
+        }
+
+        .hero-chip.alt {
+            background: rgba(9,9,11,0.9);
+            color: #fbbf24;
+            border: 1px solid rgba(248,250,252,0.12);
+        }
+
+        .split-visual {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 0.7rem;
+        }
+
+        .pane {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: radial-gradient(circle at top, #020617, #020617 60%);
+            border: 1px solid rgba(30,64,175,0.75);
+            min-height: 210px;
+        }
+
+        .pane-label {
+            position: absolute;
+            top: 0.55rem;
+            left: 0.7rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #9ca3af;
+            background: rgba(15,23,42,0.9);
+            padding: 0.18rem 0.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.4);
+        }
+
+        .pane-hint {
+            position: absolute;
+            bottom: 0.55rem;
+            left: 0.7rem;
+            font-size: 0.7rem;
+            color: #9ca3af;
+            background: rgba(15,23,42,0.88);
+            padding: 0.18rem 0.55rem;
+            border-radius: 999px;
+            border: 1px dashed rgba(148,163,184,0.5);
+        }
+
+        /* Image placeholders */
+        .image-slot {
+            position: absolute;
+            inset: 1.7rem 0.9rem 1.8rem;
+            border-radius: 0.85rem;
+            border: 1px dashed rgba(148,163,184,0.6);
+            background:
+              linear-gradient(135deg, rgba(15,23,42,0.9), rgba(15,23,42,0.95)),
+              repeating-linear-gradient(135deg, rgba(75,85,99,0.6), rgba(75,85,99,0.6) 1px, transparent 1px, transparent 6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .image-slot-inner {
+            max-width: 100%;
+        }
+
+        .image-slot i {
+            font-size: 1.6rem;
+            margin-bottom: 0.3rem;
+            color: #22d3ee;
+        }
+
+        .image-slot p {
+            font-size: 0.82rem;
+            color: #9ca3af;
+        }
+
+        .image-slot code {
+            font-size: 0.76rem;
+            background: rgba(15,23,42,0.9);
+            border-radius: 999px;
+            padding: 0.12rem 0.5rem;
+            border: 1px solid rgba(75,85,99,0.9);
+        }
+
+        /* Content sections */
+        .content-grid {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+            gap: 2.5rem;
+        }
+
+        .section-heading {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--muted-text);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-heading span {
+            color: #93c5fd;
+        }
+
+        .content-block {
+            margin-bottom: 1.7rem;
+        }
+
+        .content-block h2 {
+            font-size: 1.2rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .content-block p {
+            font-size: 0.95rem;
+            color: #e5e7eb;
+            line-height: 1.7;
+            margin-bottom: 0.7rem;
+        }
+
+        .list {
+            margin: 0.4rem 0 0.9rem 1.1rem;
+            font-size: 0.95rem;
+            color: #d1d5db;
+        }
+
+        .list li {
+            margin-bottom: 0.4rem;
+        }
+
+        .list li strong {
+            color: #fcd34d;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.78rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            border: 1px solid rgba(107,114,128,0.8);
+            color: #e5e7eb;
+            background: rgba(17,24,39,0.9);
+        }
+
+        .tag.orange {
+            border-color: rgba(249,115,22,0.9);
+            background: rgba(30,64,175,0.2);
+            color: #fed7aa;
+        }
+
+        /* Image grid section */
+        .gallery-card {
+            padding: 1.3rem 1.4rem;
+            border-radius: 1.1rem;
+            border: 1px solid rgba(148,163,184,0.3);
+            background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(2,6,23,0.98));
+            box-shadow: 0 18px 40px rgba(15,23,42,0.9);
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.9rem;
+        }
+
+        .gallery-header h2 {
+            font-size: 1rem;
+        }
+
+        .gallery-header span {
+            font-size: 0.75rem;
+            color: var(--muted-text);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+
+        .image-card {
+            position: relative;
+            border-radius: 0.9rem;
+            overflow: hidden;
+            border: 1px dashed rgba(75,85,99,0.9);
+            background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,1));
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem;
+        }
+
+        .image-card-inner {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .image-card-inner i {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 0.2rem;
+            color: #facc15;
+        }
+
+        .image-card-inner code {
+            display: inline-block;
+            margin-top: 0.25rem;
+            padding: 0.12rem 0.45rem;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.95);
+            border: 1px solid rgba(75,85,99,0.9);
+            font-size: 0.7rem;
+        }
+
+        /* Footer note */
+        .footer-note {
+            margin-top: 2.5rem;
+            font-size: 0.8rem;
+            color: var(--muted-text);
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .hero-card {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-nav-inner {
+                padding-inline: 1rem;
+            }
+            .page-wrap {
+                padding-inline: 1rem;
+            }
+            .hero {
+                gap: 2rem;
+            }
+            .content-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .image-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .nav-links {
+                gap: 0.4rem;
+            }
+            .nav-pill {
+                padding-inline: 0.6rem;
+            }
+            .hero-footnote {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-orange"></div>
+    <div class="orb orb-cyan"></div>
+
+    <header class="top-nav">
+        <div class="top-nav-inner">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">
+                    <i class="fas fa-fire-extinguisher"></i>
+                </div>
+                <div>
+                    <span>Cameron Johns</span>
+                    <div style="font-size:0.7rem;color:#9ca3af;">Mechatronic Engineering • UTS</div>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html#projects" class="nav-pill">Portfolio</a>
+                <a href="reflections.html" class="nav-pill">Reflections</a>
+                <a href="resume.html" class="nav-pill">Resume</a>
+                <span class="nav-pill primary">F.L.A.R.E case study</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-wrap">
+        <section class="hero">
+            <div>
+                <div class="eyebrow">
+                    <i class="fas fa-circle-dot"></i>
+                    <span>Robotics Studio 1 • Multi‑robot wildfire response</span>
+                </div>
+                <h1>
+                    <span class="flare">F.L.A.R.E</span> — Firefighting using Localisation &amp; Advanced Real‑time Environment Mapping
+                </h1>
+                <p class="hero-subtitle">
+                    A dual‑robot system concept combining an autonomous UAV and UGV, delivering real‑time wildfire situational awareness and targeted suppression through ROS&nbsp;2, Gazebo Ignition simulation, and a Steam&nbsp;Deck‑optimised GUI.
+                </p>
+                <div class="hero-meta">
+                    <span class="pill accent">ROS&nbsp;2 • Gazebo Ignition • SLAM • Nav2</span>
+                    <span class="pill">UAV + UGV • Multi‑robot coordination</span>
+                    <span class="pill">Human‑centred HMI on Steam&nbsp;Deck</span>
+                </div>
+                <p class="hero-footnote">
+                    Designed to support agencies such as the Rural Fire Service and NSW National Parks &amp; Wildlife Service with scalable, modular wildfire response tooling.
+                </p>
+            </div>
+
+            <aside class="hero-card" aria-label="Visual placeholders for F.L.A.R.E system">
+                <div class="hero-card-header">
+                    <div class="hero-card-title">Mission control visual</div>
+                    <div class="hero-chip-row">
+                        <div class="hero-chip">UAV thermal sweep</div>
+                        <div class="hero-chip alt">UGV suppression</div>
+                    </div>
+                </div>
+                <div class="split-visual">
+                    <div class="pane">
+                        <div class="pane-label">UAV scan</div>
+                        <div class="pane-hint">Drop an overhead scan or thermal view here</div>
+                        <div class="image-slot" aria-hidden="true">
+                            <div class="image-slot-inner">
+                                <i class="fas fa-drone"></i>
+                                <p>
+                                    Replace this with a still of your
+                                    <br>RGB / IR aerial fire‑scan.
+                                </p>
+                                <p style="margin-top:0.35rem;">
+                                    Example:
+                                    <code>&lt;img src="images/flare_uav_scan.png" alt="UAV thermal fire scan"&gt;</code>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pane">
+                        <div class="pane-label">UGV action</div>
+                        <div class="pane-hint">Show LiDAR SLAM, Nav2, or extinguishing behaviour</div>
+                        <div class="image-slot" aria-hidden="true">
+                            <div class="image-slot-inner">
+                                <i class="fas fa-robot"></i>
+                                <p>
+                                    Replace this with your UGV SLAM map,
+                                    <br>Nav2 path, or extinguishing sequence.
+                                </p>
+                                <p style="margin-top:0.35rem;">
+                                    Example:
+                                    <code>&lt;img src="images/flare_ugv_nav2.png" alt="UGV SLAM &amp; Nav2 path"&gt;</code>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="content-grid" aria-label="F.L.A.R.E concept details">
+            <div>
+                <div class="section-heading">01 • <span>Concept overview</span></div>
+                <div class="content-block">
+                    <h2>Objective &amp; motivation</h2>
+                    <p>
+                        My Robotics Studio 1 group and I set out to design an <strong>incredibly robust and scalable robotics concept</strong> that could enhance both
+                        safety and operational efficiency for frontline agencies such as the Rural Fire Service and NSW National Parks &amp; Wildlife Service.
+                    </p>
+                    <p>
+                        The result is <strong>F.L.A.R.E</strong> — Firefighting using Localisation and Advanced Real‑time Environment Mapping — a dual‑robot
+                        system concept that provides rich situational awareness, intelligent fire‑localisation, and targeted autonomous response.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>System architecture</h2>
+                    <p>
+                        Our demonstration combines a <strong>UAV</strong> for autonomous aerial fire scanning and sweeping using RGB and IR camera inputs,
+                        with a <strong>UGV</strong> that autonomously navigates to identified fires and extinguishes them using a LiDAR‑based SLAM and Nav2 stack.
+                        Both platforms are orchestrated via a unified ROS&nbsp;2‑based GUI.
+                    </p>
+                    <p>
+                        The full workflow — from fire detection to UGV deployment and suppression — is simulated with <strong>Gazebo Ignition</strong> and
+                        developed entirely in <strong>ROS&nbsp;2</strong>, enabling repeatable testing and rapid iteration.
+                    </p>
+                    <ul class="list">
+                        <li><strong>UAV:</strong> Autonomous aerial sweep, RGB + IR inputs, fire localisation &amp; bounding.</li>
+                        <li><strong>UGV:</strong> LiDAR SLAM, Nav2‑based navigation, autonomous fire approach &amp; extinguishing behaviour.</li>
+                        <li><strong>GUI:</strong> Central mission control tying together perception, planning, telemetry, and teleoperation.</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Scalability &amp; modularity</h2>
+                    <p>
+                        The architecture is intentionally <strong>scalable and modular</strong>, allowing multiple UGVs and UAVs to operate concurrently
+                        and independently navigate to, and extinguish, separate fires. Configuration parameters and topics are structured so that new
+                        platforms can be added with minimal integration overhead.
+                    </p>
+                    <div class="pill-row">
+                        <span class="tag orange">Multi‑robot coordination</span>
+                        <span class="tag">ROS&nbsp;2 topics &amp; namespaces</span>
+                        <span class="tag">Modular simulation world design</span>
+                    </div>
+                </div>
+            </div>
+
+            <aside>
+                <div class="section-heading">02 • <span>Human‑centred GUI</span></div>
+                <div class="content-block">
+                    <h2>Steam Deck‑optimised operator experience</h2>
+                    <p>
+                        A core focus of the project was a <strong>polished, intuitive user interface</strong> designed to run seamlessly on a Steam Deck.
+                        By prioritising human‑centred design, we ensured the operator maintains <strong>critical situational awareness</strong> in a compact,
+                        mobile form factor.
+                    </p>
+                </div>
+                <div class="content-block">
+                    <h2>GUI capabilities</h2>
+                    <ul class="list">
+                        <li><strong>Human‑centred controls</strong> to easily start and stop autonomous routines.</li>
+                        <li><strong>Immediate feedback</strong> on fire position and estimated size, battery levels, and mission statistics.</li>
+                        <li><strong>Live data streams</strong> including thermal imaging, aerial map view, and real‑time RGB camera feeds over ROS&nbsp;2.</li>
+                        <li><strong>Precise positional tracking</strong> for both UAV and UGV in the environment.</li>
+                        <li><strong>Reliable manual teleoperation override</strong> to ensure the operator always remains in control.</li>
+                    </ul>
+                    <div class="pill-row">
+                        <span class="tag orange">Steam Deck HMI</span>
+                        <span class="tag">Teleoperation</span>
+                        <span class="tag">Situational awareness</span>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Key skills reinforced</h2>
+                    <p>
+                        This project solidified my skills across:
+                    </p>
+                    <ul class="list">
+                        <li>SLAM implementation and tuning for complex environments.</li>
+                        <li>Multi‑robot communication and coordination in ROS&nbsp;2.</li>
+                        <li>Teleoperation and safety‑first manual override design.</li>
+                        <li>Human‑centred UI/UX tailored to a handheld game console.</li>
+                    </ul>
+                </div>
+            </aside>
+        </section>
+
+        <section style="margin-top:3rem;">
+            <div class="gallery-card" aria-label="Image gallery for F.L.A.R.E project">
+                <div class="gallery-header">
+                    <h2>Project imagery &amp; media</h2>
+                    <span>Add your favourite screenshots, diagrams, and photos.</span>
+                </div>
+                <div class="image-grid">
+                    <figure class="image-card">
+                        <div class="image-card-inner">
+                            <i class="fas fa-fire-alt"></i>
+                            <div>Simulation overview — Gazebo Ignition wildfire scenario.</div>
+                            <div>
+                                <code>&lt;img src="images/flare_overview.png" alt="F.L.A.R.E simulation overview"&gt;</code>
+                            </div>
+                        </div>
+                    </figure>
+                    <figure class="image-card">
+                        <div class="image-card-inner">
+                            <i class="fas fa-route"></i>
+                            <div>Nav2 path planning &amp; UGV route to active fire.</div>
+                            <div>
+                                <code>&lt;img src="images/flare_nav2_path.png" alt="Nav2 path planning"&gt;</code>
+                            </div>
+                        </div>
+                    </figure>
+                    <figure class="image-card">
+                        <div class="image-card-inner">
+                            <i class="fas fa-tablet-alt"></i>
+                            <div>Steam Deck GUI layout showing live telemetry and feeds.</div>
+                            <div>
+                                <code>&lt;img src="images/flare_gui.png" alt="Steam Deck GUI for F.L.A.R.E"&gt;</code>
+                            </div>
+                        </div>
+                    </figure>
+                    <figure class="image-card">
+                        <div class="image-card-inner">
+                            <i class="fas fa-users"></i>
+                            <div>Team or hardware photo from Robotics Studio 1.</div>
+                            <div>
+                                <code>&lt;img src="images/flare_team.jpg" alt="Robotics Studio 1 team"&gt;</code>
+                            </div>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="footer-note">
+            <div>
+                Built as part of <strong>Robotics Studio 1</strong>, this concept demonstrates how multi‑robot systems and thoughtful HMI design
+                can be combined to support safer, more informed wildfire response.
+            </div>
+            <div>
+                Want to discuss the implementation details (SLAM, Nav2, ROS&nbsp;2 graph, or GUI design)?&nbsp;
+                <a href="mailto:cameron.johns2002@gmail.com">Reach out via email</a>.
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+
+
