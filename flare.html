@@ -148,7 +148,7 @@
         /* Hero */
         .hero {
             display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+            grid-template-columns: minmax(0, 1fr);
             gap: 2.5rem;
             align-items: center;
         }
@@ -279,7 +279,7 @@
             overflow: hidden;
             background: radial-gradient(circle at top, #020617, #020617 60%);
             border: 1px solid rgba(30,64,175,0.75);
-            min-height: 210px;
+            min-height: 640px;
         }
 
         .pane-label {
@@ -324,27 +324,19 @@
             padding: 1rem;
         }
 
-        .image-slot-inner {
-            max-width: 100%;
+        /* Dedicated styling for top-of-page posters */
+        .poster-slot {
+            position: absolute;
+            inset: 1.4rem 0.9rem 1.1rem;
+            border-radius: 0.85rem;
+            overflow: hidden;
         }
 
-        .image-slot i {
-            font-size: 1.6rem;
-            margin-bottom: 0.3rem;
-            color: #22d3ee;
-        }
-
-        .image-slot p {
-            font-size: 0.82rem;
-            color: #9ca3af;
-        }
-
-        .image-slot code {
-            font-size: 0.76rem;
-            background: rgba(15,23,42,0.9);
-            border-radius: 999px;
-            padding: 0.12rem 0.5rem;
-            border: 1px solid rgba(75,85,99,0.9);
+        .poster-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
 
         /* Content sections */
@@ -454,8 +446,8 @@
             position: relative;
             border-radius: 0.9rem;
             overflow: hidden;
-            border: 1px dashed rgba(75,85,99,0.9);
-            background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,1));
+            border: 1px solid rgba(148,163,184,0.35);
+            background: rgba(15,23,42,0.98);
             min-height: 120px;
             display: flex;
             align-items: center;
@@ -484,6 +476,29 @@
             background: rgba(15,23,42,0.95);
             border: 1px solid rgba(75,85,99,0.9);
             font-size: 0.7rem;
+        }
+
+        /* Corner images */
+        .corner-image {
+            position: fixed;
+            right: 1.5rem;
+            z-index: 10;
+        }
+
+        .corner-image img {
+            max-width: 220px;
+            border-radius: 0.9rem;
+            box-shadow: 0 18px 40px rgba(15,23,42,0.95);
+            border: 1px solid rgba(148,163,184,0.5);
+            display: block;
+        }
+
+        .corner-image.top-right {
+            top: 4.5rem; /* below sticky nav */
+        }
+
+        .corner-image.bottom-right {
+            bottom: 2.5rem;
         }
 
         /* Footer note */
@@ -536,6 +551,13 @@
                 font-size: 0.75rem;
             }
         }
+
+        /* Upscale hero posters on very wide screens */
+        @media (min-width: 1200px) {
+            .pane {
+                min-height: 840px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -578,58 +600,12 @@
                 <div class="hero-meta">
                     <span class="pill accent">ROS&nbsp;2 • Gazebo Ignition • SLAM • Nav2</span>
                     <span class="pill">UAV + UGV • Multi‑robot coordination</span>
-                    <span class="pill">Human‑centred HMI on Steam&nbsp;Deck</span>
+                    <span class="pill">Human‑centred HID on Steam&nbsp;Deck</span>
                 </div>
                 <p class="hero-footnote">
                     Designed to support agencies such as the Rural Fire Service and NSW National Parks &amp; Wildlife Service with scalable, modular wildfire response tooling.
                 </p>
             </div>
-
-            <aside class="hero-card" aria-label="Visual placeholders for F.L.A.R.E system">
-                <div class="hero-card-header">
-                    <div class="hero-card-title">Mission control visual</div>
-                    <div class="hero-chip-row">
-                        <div class="hero-chip">UAV thermal sweep</div>
-                        <div class="hero-chip alt">UGV suppression</div>
-                    </div>
-                </div>
-                <div class="split-visual">
-                    <div class="pane">
-                        <div class="pane-label">UAV scan</div>
-                        <div class="pane-hint">Drop an overhead scan or thermal view here</div>
-                        <div class="image-slot" aria-hidden="true">
-                            <div class="image-slot-inner">
-                                <i class="fas fa-drone"></i>
-                                <p>
-                                    Replace this with a still of your
-                                    <br>RGB / IR aerial fire‑scan.
-                                </p>
-                                <p style="margin-top:0.35rem;">
-                                    Example:
-                                    <code>&lt;img src="images/flare_uav_scan.png" alt="UAV thermal fire scan"&gt;</code>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pane">
-                        <div class="pane-label">UGV action</div>
-                        <div class="pane-hint">Show LiDAR SLAM, Nav2, or extinguishing behaviour</div>
-                        <div class="image-slot" aria-hidden="true">
-                            <div class="image-slot-inner">
-                                <i class="fas fa-robot"></i>
-                                <p>
-                                    Replace this with your UGV SLAM map,
-                                    <br>Nav2 path, or extinguishing sequence.
-                                </p>
-                                <p style="margin-top:0.35rem;">
-                                    Example:
-                                    <code>&lt;img src="images/flare_ugv_nav2.png" alt="UGV SLAM &amp; Nav2 path"&gt;</code>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
         </section>
 
         <section class="content-grid" aria-label="F.L.A.R.E concept details">
@@ -722,6 +698,32 @@
         </section>
 
         <section style="margin-top:3rem;">
+            <div class="hero-card" aria-label="Posters showcasing the F.L.A.R.E system">
+                <div class="hero-card-header">
+                    <div class="hero-card-title">Project posters</div>
+                    <div class="hero-chip-row">
+                        <div class="hero-chip">Poster 1</div>
+                        <div class="hero-chip alt">Poster 2</div>
+                    </div>
+                </div>
+                <div class="split-visual">
+                    <div class="pane">
+                        <div class="pane-label">Poster 1</div>
+                        <div class="poster-slot">
+                            <img src="images/poster1.jpeg" alt="F.L.A.R.E project poster 1">
+                        </div>
+                    </div>
+                    <div class="pane">
+                        <div class="pane-label">Poster 2</div>
+                        <div class="poster-slot">
+                            <img src="images/poster2.jpeg" alt="F.L.A.R.E project poster 2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top:3rem;">
             <div class="gallery-card" aria-label="Image gallery for F.L.A.R.E project">
                 <div class="gallery-header">
                     <h2>Project imagery &amp; media</h2>
@@ -730,38 +732,20 @@
                 <div class="image-grid">
                     <figure class="image-card">
                         <div class="image-card-inner">
-                            <i class="fas fa-fire-alt"></i>
-                            <div>Simulation overview — Gazebo Ignition wildfire scenario.</div>
-                            <div>
-                                <code>&lt;img src="images/flare_overview.png" alt="F.L.A.R.E simulation overview"&gt;</code>
-                            </div>
+                            <img src="images/firedetection.jpeg" alt="Fire detection visual" style="max-width:100%;border-radius:0.6rem;display:block;margin:0 auto;">
+                            <div style="margin-top:0.5rem;">Fire detection pipeline visual.</div>
                         </div>
                     </figure>
                     <figure class="image-card">
                         <div class="image-card-inner">
-                            <i class="fas fa-route"></i>
-                            <div>Nav2 path planning &amp; UGV route to active fire.</div>
-                            <div>
-                                <code>&lt;img src="images/flare_nav2_path.png" alt="Nav2 path planning"&gt;</code>
-                            </div>
+                            <img src="images/steamdeck.jpeg" alt="Steam Deck GUI and Robotics Studio 1 hardware" style="max-width:100%;border-radius:0.6rem;display:block;margin:0 auto;">
+                            <div style="margin-top:0.5rem;">Steam Deck GUI and Robotics Studio 1 hardware.</div>
                         </div>
                     </figure>
                     <figure class="image-card">
                         <div class="image-card-inner">
-                            <i class="fas fa-tablet-alt"></i>
-                            <div>Steam Deck GUI layout showing live telemetry and feeds.</div>
-                            <div>
-                                <code>&lt;img src="images/flare_gui.png" alt="Steam Deck GUI for F.L.A.R.E"&gt;</code>
-                            </div>
-                        </div>
-                    </figure>
-                    <figure class="image-card">
-                        <div class="image-card-inner">
-                            <i class="fas fa-users"></i>
-                            <div>Team or hardware photo from Robotics Studio 1.</div>
-                            <div>
-                                <code>&lt;img src="images/flare_team.jpg" alt="Robotics Studio 1 team"&gt;</code>
-                            </div>
+                            <img src="images/mapping+localising.jpeg" alt="Mapping and localising visual" style="max-width:100%;border-radius:0.6rem;display:block;margin:0 auto;">
+                            <div style="margin-top:0.5rem;">Mapping and localising for the F.L.A.R.E system.</div>
                         </div>
                     </figure>
                 </div>
