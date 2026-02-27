@@ -234,28 +234,6 @@
             box-shadow: 0 0 18px rgba(56,189,248,0.55);
         }
 
-        /* --- NEW CV SECTION STYLES --- */
-        .letter-container {
-            background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,0.99));
-            padding: 2rem;
-            border-radius: 1.2rem;
-            box-shadow: 0 18px 50px rgba(15,23,42,0.9);
-            border: 1px solid rgba(148,163,184,0.35);
-        }
-
-        .letter-content {
-            white-space: pre-wrap; /* This preserves formatting from the txt file */
-            font-family: inherit;
-            color: var(--text-color);
-            line-height: 1.8;
-        }
-        
-        .error-msg {
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-        /* ----------------------------- */
-        
         /* Projects Section */
         .projects-grid {
             display: grid;
@@ -513,10 +491,9 @@
                 <h1 class="name">Cameron Johns</h1>
                 <p class="title">Mechatronic Engineer | UTS</p>
                 <div class="social-links">
-                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="#" target="_blank"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/Cameron-j1" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/camjohns" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:cameron.johns2002@gmail.com"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
         </div>
@@ -527,7 +504,6 @@
             <a href="#projects" class="nav-link">Projects</a>
             <a href="#skills" class="nav-link">Skills</a>
             <a href="#about" class="nav-link">About</a>
-            <a href="#cv" class="nav-link">Cover Letter</a>
             <a href="flare.html" class="nav-link">F.L.A.R.E Robotics</a>
             <a href="reflections.html" class="nav-link">Reflections</a>
             <a href="resume.html" class="nav-link">Resume</a>
@@ -613,13 +589,6 @@
                 </div>
             </div>
         </section>
-
-        <section id="cv" class="section container">
-            <h2 class="section-title">Cover Letter</h2>
-            <div class="letter-container">
-                <div id="cv-injection-point" class="letter-content">Loading cover letter...</div>
-            </div>
-        </section>
         
         <section id="education" class="section container">
             <h2 class="section-title">Education</h2>
@@ -687,10 +656,9 @@
     <footer>
         <div class="footer-content">
             <div class="footer-social">
-                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="#" target="_blank"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/Cameron-j1" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/camjohns" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:cameron.johns2002@gmail.com"><i class="fas fa-envelope"></i></a>
             </div>
             <p>&copy; <script>document.write(new Date().getFullYear())</script> Cameron Johns. All Rights Reserved.</p>
         </div>
@@ -808,14 +776,6 @@
         }
     
         draw();
-
-        // CV Fetch Logic (Unchanged)
-        document.addEventListener("DOMContentLoaded", () => {
-            fetch('cv.txt')
-                .then(r => r.ok ? r.text() : Promise.reject("404"))
-                .then(t => document.getElementById('cv-injection-point').textContent = t)
-                .catch(e => document.getElementById('cv-injection-point').innerHTML = '<p class="error-msg">Error loading CV. Use a local server.</p>');
-        });
     })();
 </script>
 </body>
